@@ -12,7 +12,7 @@
         MinHeight="650"
         MinWidth="900"
         WindowStartupLocation="CenterScreen"
-        Background="#F2F2F2">
+        Background="WhiteSmoke">
 
     <Border CornerRadius="25"
             Background="#F2F2F2"
