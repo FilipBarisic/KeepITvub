@@ -41,6 +41,7 @@ namespace KeepIT
 
                         if (count == 1)
                         {
+                            ((App)Application.Current).SetCurrentUser(username);
                             MainMenu mainMenu = new MainMenu();
                             mainMenu.Show();
                             this.Close();
@@ -56,6 +57,16 @@ namespace KeepIT
                     MessageBox.Show("Greška pri pristupu bazi: " + ex.Message);
                 }
             }
+        }
+
+        private void btn_Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btn_Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
         }
     }
 }

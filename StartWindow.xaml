@@ -27,24 +27,41 @@
         </EventTrigger>
     </Window.Triggers>
 
-    <Border CornerRadius="25"
-            SnapsToDevicePixels="True">
+    <Grid>
+        <Border Background="#1E1E1E"
+                BorderBrush="#3A3A3A"
+                BorderThickness="2"
+                CornerRadius="25"
+                Padding="20">
 
-        <Border.Background>
-            <ImageBrush ImageSource="D:\PROJEKT VUB\SLIKE\KEEPit.jpg"
-                        Stretch="Fill" />
-        </Border.Background>
+            <Border CornerRadius="25"
+                    SnapsToDevicePixels="True"
+                    Padding="15"
+                    Background="#FF242527">
+            </Border>
+        </Border>
+        <Grid>
+            <TextBlock Text="KeepIT"
+                   FontSize="72"
+                   Foreground="WhiteSmoke" 
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center" Margin="0,221,0,0"
+                   FontStyle="Normal"
+                   FontFamily="JetBrains Mono"/>
+            <TextBlock Text="Secure archives made simple."
+                   FontSize="24"
+                   Foreground="LightGray" 
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center" Margin="0,325,0,0"
+                   FontStyle="Normal"
+                   FontFamily="JetBrains Mono"/>
 
-        <Grid MouseDown="Grid_MouseDown">
-
-            <TextBlock Text="KeepIT" 
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Top" 
-                       Margin="0,51,0,0"
-                       FontSize="100" 
-                       Foreground="White"
-                       FontWeight="Bold"/>
-
+            <Image Source="D:\PROJEKT VUB\SLIKE\ICON.png"
+                    Width="104"
+                    Height="113"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Center"
+                    Margin="0,418,0,0"/>
         </Grid>
-    </Border>
+    </Grid>
 </Window>

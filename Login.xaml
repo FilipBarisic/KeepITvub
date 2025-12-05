@@ -12,108 +12,142 @@
         MinHeight="650"
         MinWidth="900"
         WindowStartupLocation="CenterScreen"
-        Background="WhiteSmoke">
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Opacity="1">
 
-    <Border CornerRadius="25"
-            Background="#F2F2F2"
-            SnapsToDevicePixels="True">
+    <Grid>
+        <Border Background="#1E1E1E"
+                BorderBrush="#3A3A3A"
+                BorderThickness="2"
+                CornerRadius="25"
+                Padding="20">
 
-        <Grid>
+            <Border Background="#FF242527"
+                    CornerRadius="25"
+                    Padding="20">
 
-            <TextBlock Text="LOGIN" 
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Top" 
-                       Margin="0,30,0,0"
-                       FontSize="70" 
-                       Foreground="Black"
-                       FontWeight="Bold"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-            <Grid HorizontalAlignment="Center"
-                  VerticalAlignment="Center"
-                  Width="400"
-                  Height="260">
+                    <Grid Grid.Row="0" Height="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+                        <Button x:Name="btn_Minimize"
+                                Grid.Column="1"
+                                Content="—"
+                                Width="36"
+                                Height="28"
+                                Margin="0,0,8,0"
+                                Background="#2A2A2A"
+                                BorderBrush="#3A3A3A"
+                                Foreground="WhiteSmoke"
+                                FontFamily="JetBrains Mono"
+                                Click="btn_Minimize_Click"/>
 
-                <TextBlock Text="Username"
-                           Grid.Row="0"
-                           Margin="0,0,0,5"
-                           FontSize="18"
-                           Foreground="Black"/>
+                        <Button x:Name="btn_Close"
+                                Grid.Column="2"
+                                Content="X"
+                                Width="36"
+                                Height="28"
+                                Background="#2A2A2A"
+                                BorderBrush="#3A3A3A"
+                                Foreground="WhiteSmoke"
+                                FontFamily="JetBrains Mono"
+                                Click="btn_Close_Click"/>
+                    </Grid>
 
-                <TextBox x:Name="txtUsername"
-                         Grid.Row="0"
-                         Margin="0,30,0,0"
-                         Height="35"
-                         FontSize="16"
-                         Padding="5" />
+                    <StackPanel Grid.Row="1"
+                                Width="360"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
 
-                <TextBlock Text="Password"
-                           Grid.Row="2"
-                           Margin="0,0,0,5"
-                           FontSize="18"
-                           Foreground="Black"/>
+                        <TextBlock Text="LOGIN"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,30"
+                                   FontSize="56"
+                                   FontWeight="Bold"
+                                   Foreground="WhiteSmoke"
+                                   FontFamily="JetBrains Mono"/>
 
-                <PasswordBox x:Name="txtPassword"
-                             Grid.Row="2"
-                             Margin="0,30,0,0"
-                             Height="35"
-                             FontSize="16"
-                             Padding="5" />
+                        <TextBlock Text="USERNAME:"
+                                   FontSize="18"
+                                   Foreground="WhiteSmoke"
+                                   FontFamily="JetBrains Mono"/>
 
-                <Button x:Name="btn_LOGIN"
-                            Grid.Row="4"
-                            Content="LOGIN"
-                            Margin="0,30,0,0"
-                            Height="40"
-                            Width="140"
-                            HorizontalAlignment="Center"
-                            Background="ForestGreen"
-                            BorderBrush="ForestGreen"
-                            Foreground="WhiteSmoke"
-                            FontWeight="Bold"
-                            FontSize="18" Click="btn_LOGIN_Click">
+                        <TextBox x:Name="txtUsername"
+                                 Height="38"
+                                 Margin="0,6,0,18"
+                                 FontSize="16"
+                                 Padding="8"
+                                 Background="#FF1C1C1C"
+                                 Foreground="WhiteSmoke"
+                                 BorderBrush="#3A3A3A"/>
 
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border x:Name="border"
-                                        CornerRadius="20"
-                                        Background="{TemplateBinding Background}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}">
-                                <ContentPresenter HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Margin="{TemplateBinding Padding}"
-                                  RecognizesAccessKey="True" />
-                            </Border>
+                        <TextBlock Text="PASSWORD:"
+                                   FontSize="18"
+                                   Foreground="WhiteSmoke"
+                                   FontFamily="JetBrains Mono"/>
 
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="border"
-                            Property="Background"
-                            Value="DarkGreen" />
-                                </Trigger>
+                        <PasswordBox x:Name="txtPassword"
+                                     Height="38"
+                                     Margin="0,6,0,26"
+                                     FontSize="16"
+                                     Padding="8"
+                                     Background="#FF1C1C1C"
+                                     Foreground="WhiteSmoke"
+                                     BorderBrush="#3A3A3A"/>
 
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="border"
-                            Property="Background"
-                            Value="DarkGreen" />
-                                </Trigger>
-
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
-
-            </Grid>
-
-        </Grid>
-    </Border>
+                        <Button x:Name="btn_LOGIN"
+                                Content="LOGIN"
+                                Width="150"
+                                Height="42"
+                                HorizontalAlignment="Center"
+                                Background="#040E80"
+                                BorderBrush="#040E80"
+                                Foreground="WhiteSmoke"
+                                FontWeight="Bold"
+                                FontSize="18"
+                                FontFamily="JetBrains Mono"
+                                Click="btn_LOGIN_Click">
+                            
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="border"
+                                            CornerRadius="20"
+                                            Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="1">
+                                        <ContentPresenter HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border"
+                                                    Property="Background"
+                                                    Value="#0814C2"/>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="border"
+                                                    Property="Background"
+                                                    Value="#0814C2"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
 </Window>
