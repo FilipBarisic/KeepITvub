@@ -4,7 +4,7 @@ namespace KeepIT
 {
     public partial class App : Application
     {
-        public string CurrentUsername { get; private set; }
+        public string? CurrentUsername { get; private set; }
 
         public bool IsLoggedIn
             => !string.IsNullOrWhiteSpace(CurrentUsername);

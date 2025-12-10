@@ -10,11 +10,25 @@ namespace KeepIT
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btn_Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized; // Minimizira prozor  ali probaj napravi taskbar ikonu
+        }
+        private void btn_Back_Click(object sender, RoutedEventArgs e)
         {
             MainMenu mainMenu = new MainMenu();
             mainMenu.Show();
             this.Close();
+        }
+
+        private void btn_ChangeLocalSave_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Normal;
+        }
+
+        private void btn_ChangeUsernamePassword_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Normal;
         }
     }
 }

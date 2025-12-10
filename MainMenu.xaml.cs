@@ -9,18 +9,43 @@ namespace KeepIT
         {
             InitializeComponent();
             var app = (App)Application.Current;
-            txtWelcome.Text = $"Dobrodošli - {app.CurrentUsername}";
+            txtWelcome.Text = app.IsLoggedIn
+                ? $"Dobrodošli - {app.CurrentUsername}"
+                : "Dobrodošli"; // -> ako se ne ulogiraš, samo piše Dobrodošli
+
 
         }
 
         private void btn_Close_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            var dlg = new LogoutDialog();
+            dlg.Owner = this;
+
+            var result = dlg.ShowDialog(); // Prikaži dijalog i čekaj na rezultat
+            if (result != true) return; // Ako korisnik je kliknuo Cancel ili zatvorio dijalog, ne radi ništa ali ugasi prozor
+
+            var app = (App)Application.Current;
+
+            if (dlg.Choice == LogoutChoice.Logout)
+            {
+                app.ClearSession(); //Nullable trenutnu sesiju korisnika u aplikaciji napravi
+
+                var login = new Login();
+                login.Show();
+                this.Close(); // Zatvori ali tako da ostane aplikacija otvorena mainmenu nije glavni 
+            }
+            else if (dlg.Choice == LogoutChoice.LogoutAndExit)
+            {
+                app.ClearSession();
+                Application.Current.Shutdown();
+            }
         }
+
+
 
         private void btn_Minimize_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Minimized;
+            this.WindowState = WindowState.Minimized; // Minimizira prozor  ali probaj napravi taskbar ikonu
         }
 
         private void btn_LOCAL_Click(object sender, RoutedEventArgs e)

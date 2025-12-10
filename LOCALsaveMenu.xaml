@@ -5,8 +5,116 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KeepIT"
         mc:Ignorable="d"
-        Title="LOCALsaveMenu" Height="450" Width="800">
-    <Grid>
         
+        Height="950"
+        MaxHeight="950"
+        MinHeight="950"
+
+        Width="1600"
+        MaxWidth="1600"
+        MinWidth="1600"
+        
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Opacity="1">
+    <Window.Resources>
+        <Style x:Key="DialogButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#040E80"/>
+            <Setter Property="BorderBrush" Value="#040E80"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontFamily" Value="JetBrains Mono"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Padding" Value="8,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                CornerRadius="14"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border"
+                                        Property="Background"
+                                        Value="#0814C2"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border"
+                                        Property="Background"
+                                        Value="#0814C2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Border Background="#1E1E1E"
+                BorderBrush="#3A3A3A"
+                BorderThickness="2"
+                CornerRadius="25"
+                Padding="20">
+
+            <Border Background="#FF242527"
+                    CornerRadius="25"
+                    Padding="20">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Height="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <local:DateTimeWidget 
+                                Grid.Column="0"
+                                Width="160"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="8,2,0,0"/>
+
+                        <Button x:Name="btn_Minimize"
+                                Grid.Column="1"
+                                Content="—"
+                                Width="36"
+                                Height="28"
+                                Margin="0,0,8,0"
+                                Background="#2A2A2A"
+                                BorderBrush="#3A3A3A"
+                                Foreground="WhiteSmoke"
+                                FontFamily="JetBrains Mono"
+                                Click="btn_Minimize_Click"/>
+
+                        <Button x:Name="btn_Back"
+                                Grid.Column="2"
+                                Content="Back"
+                                Width="36"
+                                Height="28"
+                                Background="#2A2A2A"
+                                BorderBrush="#3A3A3A"
+                                Foreground="WhiteSmoke"
+                                FontFamily="JetBrains Mono"
+                                Click="btn_Back_Click"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Border>
     </Grid>
 </Window>
