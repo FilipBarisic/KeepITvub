@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace KeepIT
 {
@@ -18,6 +19,11 @@ namespace KeepIT
             MainMenu mainMenu = new MainMenu();
             mainMenu.Show();
             this.Close();
+        }
+
+        private void tvFolders_SelectedItemChanged()
+        {
+            WindowState = WindowState.Normal;
         }
     }
 }
