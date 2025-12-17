@@ -103,7 +103,7 @@
 
                         <Button x:Name="btn_Back"
                                 Grid.Column="2"
-                                Content="Back"
+                                Content="Nazad"
                                 Width="60"
                                 Height="28"
                                 Background="#2A2A2A"
@@ -134,37 +134,60 @@
                                 <!-- Files to archive -->
                             </Grid.ColumnDefinitions>
 
-                            <Border Grid.Column="0"
-                                    Background="#1E1E1E"
-                                    CornerRadius="4"
-                                    BorderBrush="#3A3A3A"
+                            <Border Grid.Column="0" 
+                                    Background="#1E1E1E" 
+                                    CornerRadius="4" 
+                                    BorderBrush="#3A3A3A" 
                                     BorderThickness="1">
-                                <StackPanel>
-                                    <TextBlock Text="Folders"
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0"
+                                               Text="Folderi"
                                                FontFamily="JetBrains Mono"
                                                FontWeight="Bold"
                                                Foreground="WhiteSmoke"
                                                FontSize="14"
                                                Margin="8,6,8,4"/>
+
                                     <TreeView x:Name="tvFolders"
+                                              Grid.Row="1"
                                               Margin="4,0,4,4"
                                               Background="Transparent"
                                               Foreground="WhiteSmoke"
-                                              FontFamily="JetBrains Mono"/>
-                                    <TextBlock Text="* Selected folder is used as archive destination on Save."
-                                               FontFamily="JetBrains Mono"
-                                               FontSize="10"
-                                               Foreground="Gray"
-                                               Margin="8,0,8,6"
-                                               TextWrapping="Wrap"/>
-                                </StackPanel>
+                                              FontFamily="JetBrains Mono"
+                                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                              ScrollViewer.HorizontalScrollBarVisibility="Auto">
+
+                                        <TreeView.Resources>
+                                            <Style TargetType="TreeViewItem">
+                                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                            </Style>
+                                        </TreeView.Resources>
+
+                                    </TreeView>
+
+
+                                    <TextBlock Grid.Row="2"
+                                                Text="* Prikaz dostupnih diskova i foldera na računalu."
+                                                FontFamily="JetBrains Mono"
+                                                FontSize="10"
+                                                Foreground="Gray"
+                                                Margin="8,0,8,6"
+                                                TextWrapping="Wrap"/>
+                                </Grid>
                             </Border>
+
 
                             <Border Grid.Column="2"
                                     Background="#1E1E1E"
                                     CornerRadius="4" Margin="0,0,768,0" Grid.ColumnSpan="3">
                                 <StackPanel>
-                                    <TextBlock Text="Files in selected folder"
+                                    <TextBlock Text="Dokumenti u folderu"
                                                FontFamily="JetBrains Mono"
                                                FontWeight="Bold"
                                                Foreground="WhiteSmoke"
@@ -202,8 +225,11 @@
                                                                     Background="{TemplateBinding Background}"
                                                                     CornerRadius="6"
                                                                     SnapsToDevicePixels="true">
-                                                                <ContentPresenter/>
+                                                                <GridViewRowPresenter
+                                                                    Content="{TemplateBinding Content}"
+                                                                    Columns="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=View.Columns}"/>
                                                             </Border>
+
                                                             <ControlTemplate.Triggers>
                                                                 <Trigger Property="IsSelected" Value="True">
                                                                     <Setter TargetName="Bd" Property="Background" Value="#0814C2"/>
@@ -213,6 +239,7 @@
                                                                 </Trigger>
                                                             </ControlTemplate.Triggers>
                                                         </ControlTemplate>
+
                                                     </Setter.Value>
                                                 </Setter>
                                             </Style>
@@ -237,7 +264,7 @@
                                                                     <Border Background="{TemplateBinding Background}"
                                                                             Padding="{TemplateBinding Padding}"
                                                                             CornerRadius="6">
-                                                                        <TextBlock Text="No files to display"
+                                                                        <TextBlock Text="Nema podataka za prikazati"
                                                                                    Foreground="Gray"
                                                                                    FontFamily="JetBrains Mono"
                                                                                    HorizontalAlignment="Center"
@@ -257,9 +284,16 @@
 
                             <Border Grid.Column="4"
                                     Background="#1E1E1E"
-                                    CornerRadius="4" Margin="222,0,0,0">
-                                <StackPanel Margin="0">
-                                    <TextBlock Text="Files to archive"
+                                    CornerRadius="4"
+                                    Margin="222,0,0,0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0"
+                                               Text="Podaci za arhiviranje"
                                                FontFamily="JetBrains Mono"
                                                FontWeight="Bold"
                                                Foreground="WhiteSmoke"
@@ -267,6 +301,7 @@
                                                Margin="8,6,8,4"/>
 
                                     <ListView x:Name="lvArchiveQueue"
+                                              Grid.Row="1"
                                               Margin="8,0,8,8"
                                               Background="#1E1E1E"
                                               Foreground="WhiteSmoke"
@@ -274,7 +309,9 @@
                                               BorderThickness="0"
                                               HorizontalContentAlignment="Stretch"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                              ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                               Padding="4">
+
                                         <ListView.Resources>
                                             <Style TargetType="GridViewColumnHeader">
                                                 <Setter Property="Foreground" Value="WhiteSmoke"/>
@@ -297,9 +334,12 @@
                                                             <Border x:Name="Bd"
                                                                     Background="{TemplateBinding Background}"
                                                                     CornerRadius="6"
-                                                                    SnapsToDevicePixels="true">
-                                                                <ContentPresenter/>
+                                                                    SnapsToDevicePixels="true">         
+                                                                <GridViewRowPresenter
+                                                                    Content="{TemplateBinding Content}"
+                                                                    Columns="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=View.Columns}"/>                                                  
                                                             </Border>
+
                                                             <ControlTemplate.Triggers>
                                                                 <Trigger Property="IsSelected" Value="True">
                                                                     <Setter TargetName="Bd" Property="Background" Value="#0814C2"/>
@@ -332,7 +372,7 @@
                                                                     <Border Background="{TemplateBinding Background}"
                                                                             Padding="{TemplateBinding Padding}"
                                                                             CornerRadius="6">
-                                                                        <TextBlock Text="No files in archive queue"
+                                                                        <TextBlock Text="Nema podataka za prikazati"
                                                                                    Foreground="Gray"
                                                                                    FontFamily="JetBrains Mono"
                                                                                    HorizontalAlignment="Center"
@@ -346,9 +386,11 @@
                                                 </Style.Triggers>
                                             </Style>
                                         </ListView.Style>
+
                                     </ListView>
-                                </StackPanel>
+                                </Grid>
                             </Border>
+
 
                         </Grid>
                     </Border>
@@ -362,7 +404,7 @@
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center">
                             <Button x:Name="btn_Save"
-                                    Content="Save"
+                                    Content="Arhiviraj"
                                     Width="250"
                                     Height="40"
                                     Background="#2A2A2A"
@@ -371,7 +413,7 @@
                                     FontFamily="JetBrains Mono"/>
 
                             <Button x:Name="btn_Add"
-                                    Content="Add"
+                                    Content="Dodaj"
                                     Width="100"
                                     Height="40"
                                     Margin="8,0,0,0"
@@ -381,7 +423,7 @@
                                     FontFamily="JetBrains Mono"/>
 
                             <Button x:Name="btn_Remove"
-                                    Content="Remove"
+                                    Content="Ukloni"
                                     Width="100"
                                     Height="40"
                                     Margin="8,0,0,0"
