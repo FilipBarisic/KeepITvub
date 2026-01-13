@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
+using System.IO.Compression;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -130,19 +130,24 @@ namespace KeepIT
 
         private void btn_Back_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show(
+            var warn = new BackLocal(
                 "Promjene i proces arhiviranja će biti obrisani! Želite li se vratiti na glavni meni?",
-                "OK",
-                MessageBoxButton.OKCancel,
-                MessageBoxImage.Warning);
-
-            if (result == MessageBoxResult.OK)
+                "Upozorenje"
+            )
             {
-                var mainMenu = new MainMenu();
-                mainMenu.Show();
-                this.Close();
-            }
+                Owner = this
+            };
+
+            var res = warn.ShowDialog();
+            if (res != true) return;       
+
+            _archive.Clear();
+
+            var main = new MainMenu();
+            main.Show();
+            this.Close();
         }
+
 
         private void btn_Add_Click(object sender, RoutedEventArgs e)
         {
@@ -177,6 +182,70 @@ namespace KeepIT
             int order = 0;
             while (len >= 1024 && order < sizes.Length - 1) { order++; len /= 1024; }
             return $"{len:0.#} {sizes[order]}";
+        }
+
+        private void btn_Save_Click(object sender, RoutedEventArgs e)
+        {
+            if (_archive.Count == 0)
+            {
+                var warn = new ArchiveCount(
+                    "Nema datoteka u redu za arhiviranje.",
+                    "Upozorenje"
+                )
+                {
+                    Owner = this
+                };
+
+                warn.ShowDialog();
+                return;
+            }
+
+
+            var dlg = new LocalLocationPick { Owner = this };
+            if (dlg.ShowDialog() != true) return;
+
+            string destinationFolder;
+
+            if (dlg.Choice == SaveChoice.CostumSave)
+            {
+                var ofd = new Microsoft.Win32.OpenFolderDialog
+                {
+                    Title = "Odaberi folder za spremanje ZIP-a",
+                    Multiselect = false
+                };
+
+                if (ofd.ShowDialog(this) != true) return;
+
+                destinationFolder = ofd.FolderName; // <-- bez "string"
+            }
+            else if (dlg.Choice == SaveChoice.DefaultSave)
+            {
+                destinationFolder = @"C:\KeepIT_Archive";
+            }
+            else
+            {
+                return;
+            }
+
+            Directory.CreateDirectory(destinationFolder);
+
+            string zipName = DateTime.Now.ToString("dd.MM.yyyy HH-mm-ss") + ".zip";
+            string zipPath = Path.Combine(destinationFolder, zipName);
+
+            using var zip = ZipFile.Open(zipPath, ZipArchiveMode.Create);
+            foreach (var item in _archive)
+            {
+                if (!File.Exists(item.Path)) continue;
+
+                zip.CreateEntryFromFile(item.Path, Path.GetFileName(item.Path), CompressionLevel.Optimal);
+            }
+
+            MessageBox.Show($"Spremljeno:\n{zipPath}");
+        }
+
+        private void btn_Delete_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

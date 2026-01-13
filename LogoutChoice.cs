@@ -6,5 +6,5 @@
             Logout,
             LogoutAndExit,
             Cancel
-        }
+    }
 }
