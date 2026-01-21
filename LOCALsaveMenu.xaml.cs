@@ -220,7 +220,7 @@ namespace KeepIT
             }
             else if (dlg.Choice == SaveChoice.DefaultSave)
             {
-                destinationFolder = @"C:\KeepIT_Archive";
+                destinationFolder = @"C:\KeepIT_Archive"; // --> C disk odabran kao default lokacija ako ne postoji za sada nema opciju mijenjati. DODATI!!!!!!
             }
             else
             {
@@ -240,7 +240,11 @@ namespace KeepIT
                 zip.CreateEntryFromFile(item.Path, Path.GetFileName(item.Path), CompressionLevel.Optimal);
             }
 
-            MessageBox.Show($"Spremljeno:\n{zipPath}");
+            var msg = new SaveLocationMsgWin($"Spremljeno je na:\n{zipPath}", "Spremljeno")
+            {
+                Owner = this
+            };
+            msg.ShowDialog();
         }
 
         private void btn_Delete_Click(object sender, RoutedEventArgs e)
