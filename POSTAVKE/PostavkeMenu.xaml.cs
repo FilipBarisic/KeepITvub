@@ -23,10 +23,19 @@ namespace KeepIT
 
         private void btn_ChangeLocalSave_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Normal;
+            ChangeLocalSave chnglclsve = new ChangeLocalSave();
+            chnglclsve.Show();
+            this.Close();
         }
 
-        private void btn_ChangeUsernamePassword_Click(object sender, RoutedEventArgs e)
+        private void btn_ChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeUsrPsswrd pswrchng = new ChangeUsrPsswrd();
+            pswrchng.Show();
+            this.Close();
+        }
+
+        private void btn_PostaviAutoArhiviranje_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Normal;
         }

@@ -45,7 +45,7 @@ namespace KeepIT
 
                 if (d.IsReady) driveItem.Items.Add(MakeDummy());
 
-                tvFolders.Items.Add(driveItem); 
+                tvFolders.Items.Add(driveItem);
             }
         }
 
@@ -139,7 +139,7 @@ namespace KeepIT
             };
 
             var res = warn.ShowDialog();
-            if (res != true) return;       
+            if (res != true) return;
 
             _archive.Clear();
 
@@ -220,7 +220,7 @@ namespace KeepIT
             }
             else if (dlg.Choice == SaveChoice.DefaultSave)
             {
-                destinationFolder = @"C:\KeepIT_Archive"; // --> C disk odabran kao default lokacija ako ne postoji za sada nema opciju mijenjati. DODATI!!!!!!
+                destinationFolder = DefaultArchivePathStore.Get();
             }
             else
             {
@@ -247,9 +247,6 @@ namespace KeepIT
             msg.ShowDialog();
         }
 
-        private void btn_Delete_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
     }
 }
