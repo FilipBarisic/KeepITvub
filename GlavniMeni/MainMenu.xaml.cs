@@ -21,18 +21,18 @@ namespace KeepIT
             var dlg = new LogoutDialog();
             dlg.Owner = this;
 
-            var result = dlg.ShowDialog(); // Prikaži dijalog i čekaj na rezultat
-            if (result != true) return; // Ako korisnik je kliknuo Cancel ili zatvorio dijalog, ne radi ništa ali ugasi prozor
+            var result = dlg.ShowDialog();
+            if (result != true) return;
 
             var app = (App)Application.Current;
 
             if (dlg.Choice == LogoutChoice.Logout)
             {
-                app.ClearSession(); //Nullable trenutnu sesiju korisnika u aplikaciji napravi
+                app.ClearSession();
 
                 var login = new Login();
                 login.Show();
-                this.Close(); // Zatvori ali tako da ostane aplikacija otvorena mainmenu nije glavni 
+                this.Close(); 
             }
             else if (dlg.Choice == LogoutChoice.LogoutAndExit)
             {
@@ -45,7 +45,7 @@ namespace KeepIT
 
         private void btn_Minimize_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Minimized; // Minimizira prozor  ali probaj napravi taskbar ikonu
+            this.WindowState = WindowState.Minimized;
         }
 
         private void btn_LOCAL_Click(object sender, RoutedEventArgs e)

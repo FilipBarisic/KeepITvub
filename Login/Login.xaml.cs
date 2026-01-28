@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace KeepIT
 {
@@ -13,60 +14,65 @@ namespace KeepIT
         private void btn_LOGIN_Click(object sender, RoutedEventArgs e)
         {
             string username = txtUsername.Text.Trim();
-            string password = txtPassword.Password.Trim();
+            string password = txtPassword.Password;
 
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Neispravno korisničko ime ili lozinka.");
+                MessageBox.Show("Unesi korisničko ime i lozinku.");
                 return;
             }
 
             string connectionString =
-                @"Data Source=BAKS\SQLEXPRESS;Initial Catalog=KeepIT;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Application Name=""SQL Server Management Studio"";";
+                "Server=tcp:keep-it.database.windows.net,1433;" +
+                "Initial Catalog=KeepIT;" +
+                "Persist Security Info=False;" +
+                "User ID=fbarisicAzure;" +
+                "Password=FBarisic123!;" +
+                "MultipleActiveResultSets=False;" +
+                "Encrypt=True;" +
+                "TrustServerCertificate=False;" +
+                "Connection Timeout=30;";
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                try
+                using var conn = new SqlConnection(connectionString);
+                conn.Open();
+
+                const string query = @"
+                    SELECT TOP (1) UserId, Username
+                    FROM dbo.Korisnici
+                    WHERE Username COLLATE Latin1_General_100_CS_AS = @username
+                      AND PasswordHash = HASHBYTES('SHA2_256', @password);
+                    ";
+
+                using var cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.Add("@username", SqlDbType.NVarChar, 64).Value = username;
+                cmd.Parameters.Add("@password", SqlDbType.NVarChar, 200).Value = password;
+
+                using var r = cmd.ExecuteReader();
+                if (!r.Read())
                 {
-                    conn.Open();
-
-                    string query = "SELECT COUNT(1) FROM Korisnici WHERE Username=@username AND Password=@password";
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@username", username);
-                        cmd.Parameters.AddWithValue("@password", password);
-
-                        int count = Convert.ToInt32(cmd.ExecuteScalar());
-
-                        if (count == 1)
-                        {
-                            ((App)Application.Current).SetCurrentUser(username);
-                            MainMenu mainMenu = new MainMenu();
-                            mainMenu.Show();
-                            this.Close();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Neispravno korisničko ime ili lozinka.");
-                        }
-                    }
+                    MessageBox.Show("Neispravno korisničko ime ili lozinka.");
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Greška pri pristupu bazi: " + ex.Message);
-                }
+
+                var userId = (Guid)r["UserId"];
+                var dbUsername = (string)r["Username"];
+                ((App)Application.Current).SetCurrentUser(dbUsername);
+                ((App)Application.Current).SetCurrentUserId(userId);
+
+                MainMenu mainMenu = new MainMenu();
+                mainMenu.Show();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Greška pri pristupu bazi: " + ex.Message);
             }
         }
 
-        private void btn_Close_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btn_Minimize_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = WindowState.Minimized;
-        }
+        private void btn_Close_Click(object sender, RoutedEventArgs e) => Close();
+        private void btn_Minimize_Click(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
     }
 }

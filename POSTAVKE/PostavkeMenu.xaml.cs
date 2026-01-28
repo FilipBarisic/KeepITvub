@@ -37,7 +37,9 @@ namespace KeepIT
 
         private void btn_PostaviAutoArhiviranje_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Normal;
+            AutoArhiviranje autoArhiva = new AutoArhiviranje();
+            autoArhiva.Show();
+            this.Close();
         }
     }
 }
