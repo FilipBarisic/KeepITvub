@@ -123,15 +123,10 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="260"/>
-                                <!-- TreeView -->
                                 <ColumnDefinition Width="10"/>
-                                <!-- razmak -->
                                 <ColumnDefinition Width="2*"/>
-                                <!-- Files in selected folder -->
                                 <ColumnDefinition Width="10"/>
-                                <!-- razmak -->
                                 <ColumnDefinition Width="3*"/>
-                                <!-- Files to archive -->
                             </Grid.ColumnDefinitions>
 
                             <Border Grid.Column="0" 
@@ -334,10 +329,10 @@
                                                             <Border x:Name="Bd"
                                                                     Background="{TemplateBinding Background}"
                                                                     CornerRadius="6"
-                                                                    SnapsToDevicePixels="true">         
+                                                                    SnapsToDevicePixels="true">
                                                                 <GridViewRowPresenter
                                                                     Content="{TemplateBinding Content}"
-                                                                    Columns="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=View.Columns}"/>                                                  
+                                                                    Columns="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=View.Columns}"/>
                                                             </Border>
 
                                                             <ControlTemplate.Triggers>
@@ -431,6 +426,7 @@
                                     BorderBrush="#3A3A3A"
                                     Foreground="WhiteSmoke"
                                     FontFamily="JetBrains Mono"/>
+
                         </StackPanel>
                     </Border>
                 </Grid>
