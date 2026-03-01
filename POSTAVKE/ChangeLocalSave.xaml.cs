@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace KeepIT
 {
@@ -7,33 +8,35 @@ namespace KeepIT
         public ChangeLocalSave()
         {
             InitializeComponent();
-
-            txtCurrentLocalSavePath.Text = DefaultArchivePathStore.Get();
+            UcitajPath();
         }
 
-        private void btn_PromjeniLocalSave_Click(object sender, RoutedEventArgs e)
+        private void UcitajPath() { CurrentLocalSavePathText.Text = DefaultArchivePathStore.Get(); }
+        private void PromjeniDefaultPath_Click(object sender, RoutedEventArgs e)
         {
-            var ofd = new Microsoft.Win32.OpenFolderDialog
+            var dialog = new Microsoft.Win32.OpenFolderDialog
             {
                 Title = "Odaberi novu default lokaciju arhiviranja",
                 Multiselect = false
             };
 
-            if (ofd.ShowDialog(this) != true) return;
+            if (dialog.ShowDialog(this) != true)
+                return;
 
-            DefaultArchivePathStore.Set(ofd.FolderName);
-            txtCurrentLocalSavePath.Text = DefaultArchivePathStore.Get();
+            DefaultArchivePathStore.Set(dialog.FolderName);
+            UcitajPath();
         }
 
-        private void btn_Minimize_Click(object sender, RoutedEventArgs e)
+        private void TopBar_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.WindowState = WindowState.Minimized; // Minimizira prozor  ali probaj napravi taskbar ikonu
+            if (e.ButtonState == MouseButtonState.Pressed)
+                DragMove();
         }
-        private void btn_Back_Click(object sender, RoutedEventArgs e)
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e) { WindowState = WindowState.Minimized; }
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            PostavkeMenu postavkeMenu = new PostavkeMenu();
-            postavkeMenu.Show();
-            this.Close();
+            new PostavkeMenu().Show();
+            Close();
         }
     }
 }

@@ -1,72 +1,72 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace KeepIT
 {
-
     public partial class MainMenu : Window
     {
         public MainMenu()
         {
             InitializeComponent();
-            var app = (App)Application.Current;
-            txtWelcome.Text = app.IsLoggedIn
-                ? $"Dobrodošli - {app.CurrentUsername}"
-                : "Dobrodošli"; // -> ako se ne ulogiraš, samo piše Dobrodošli
-
-
+            SetWelcomeMessage();
         }
 
-        private void btn_Close_Click(object sender, RoutedEventArgs e)
+        private void SetWelcomeMessage()
         {
-            var dlg = new LogoutDialog();
-            dlg.Owner = this;
-
-            var result = dlg.ShowDialog();
-            if (result != true) return;
-
             var app = (App)Application.Current;
 
-            if (dlg.Choice == LogoutChoice.Logout)
-            {
-                app.ClearSession();
+            WelcomeText.Text = app.IsLoggedIn
+                ? $"Dobrodošli - {app.CurrentUsername}"
+                : "Korisnik nije logiran, ulogiraj korisnika";
+        }
 
-                var login = new Login();
-                login.Show();
-                this.Close(); 
-            }
-            else if (dlg.Choice == LogoutChoice.LogoutAndExit)
+        // Gumbi za zatvaranje, minimiziranje i pomicanje prozora
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            var choice = Alerts.Choose(
+                this,
+                "Odaberi radnju:",
+                "ODJAVA",
+                primaryText: "ODJAVA",
+                secondaryText: "ODJAVA + IZLAZ",
+                cancelText: "ODUSTANI");
+
+            if (choice == AlertResult.Tertiary || choice == AlertResult.Closed)
+                return;
+
+            var app = (App)Application.Current;
+            app.ClearSession();
+
+            if (choice == AlertResult.Primary)
             {
-                app.ClearSession();
+                new Login().Show();
+                Close();
+                return;
+            }
+
+            if (choice == AlertResult.Secondary)
+            {
                 Application.Current.Shutdown();
             }
         }
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e) { WindowState = WindowState.Minimized; }
+        private void TopBar_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e) { if (e.ButtonState == MouseButtonState.Pressed) { DragMove(); } }
 
-
-
-        private void btn_Minimize_Click(object sender, RoutedEventArgs e)
+        // Navigacija na ostale prozore
+        private void ArchiveLocalButton_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Minimized;
+            new LOCALsaveMenu().Show();
+            Close();
         }
-
-        private void btn_LOCAL_Click(object sender, RoutedEventArgs e)
+        private void ArchiveServerButton_Click(object sender, RoutedEventArgs e)
         {
-            LOCALsaveMenu localmenu = new LOCALsaveMenu();
-            localmenu.Show();
-            this.Close();
+            new SERVERsaveMenu().Show();
+            Close();
         }
-
-        private void btn_SERVER_Click(object sender, RoutedEventArgs e)
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            SERVERsaveMenu serversavemenu = new SERVERsaveMenu();
-            serversavemenu.Show();
-            this.Close();
-        }
-
-        private void btn_POSTAVKE_Click(object sender, RoutedEventArgs e)
-        {
-            PostavkeMenu postavkemenu = new PostavkeMenu();
-            postavkemenu.Show();
-            this.Close();
+            new PostavkeMenu().Show();
+            Close();
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace KeepIT
 {
-
     public partial class PostavkeMenu : Window
     {
         public PostavkeMenu()
@@ -10,36 +10,36 @@ namespace KeepIT
             InitializeComponent();
         }
 
-        private void btn_Minimize_Click(object sender, RoutedEventArgs e)
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Minimized; // Minimizira prozor  ali probaj napravi taskbar ikonu
-        }
-        private void btn_Back_Click(object sender, RoutedEventArgs e)
-        {
-            MainMenu mainMenu = new MainMenu();
-            mainMenu.Show();
-            this.Close();
+            new MainMenu().Show();
+            Close();
         }
 
-        private void btn_ChangeLocalSave_Click(object sender, RoutedEventArgs e)
+        private void TopBar_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            ChangeLocalSave chnglclsve = new ChangeLocalSave();
-            chnglclsve.Show();
-            this.Close();
+            if (e.ButtonState == MouseButtonState.Pressed)
+                DragMove();
         }
 
-        private void btn_ChangePassword_Click(object sender, RoutedEventArgs e)
+        private void ChangeLocalSaveButton_Click(object sender, RoutedEventArgs e)
         {
-            ChangeUsrPsswrd pswrchng = new ChangeUsrPsswrd();
-            pswrchng.Show();
-            this.Close();
+            new ChangeLocalSave().Show();
+            Close();
         }
 
-        private void btn_PostaviAutoArhiviranje_Click(object sender, RoutedEventArgs e)
+        private void PromjeniLozinku_Click(object sender, RoutedEventArgs e)
         {
-            AutoArhiviranje autoArhiva = new AutoArhiviranje();
-            autoArhiva.Show();
-            this.Close();
+            new ChangeUsrPsswrd().Show();
+            Close();
+        }
+
+        private void AutoArchiveButton_Click(object sender, RoutedEventArgs e)
+        {
+            new AutoArhiviranje().Show();
+            Close();
         }
     }
 }

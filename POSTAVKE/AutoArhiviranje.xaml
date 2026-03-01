@@ -3,14 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:KeepIT"
         mc:Ignorable="d"
-        Height="700"
-        Width="900"
-        MaxHeight="700"
-        MaxWidth="900"
-        MinHeight="700"
-        MinWidth="900"
+        Height="865"
+        Width="980"
+        MaxHeight="865"
+        MaxWidth="980"
+        MinHeight="865"
+        MinWidth="980"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -19,208 +18,93 @@
         Opacity="1">
 
     <Window.Resources>
-
-        <SolidColorBrush x:Key="BgOuter" Color="#1E1E1E"/>
-        <SolidColorBrush x:Key="BgInner" Color="#242527"/>
-        <SolidColorBrush x:Key="CardBg"  Color="#202124"/>
-        <SolidColorBrush x:Key="InputBg" Color="#2A2A2A"/>
-        <SolidColorBrush x:Key="Border"  Color="#3A3A3A"/>
-
-        <SolidColorBrush x:Key="Text"  Color="#F5F5F5"/>
-        <SolidColorBrush x:Key="Muted" Color="#B9B9B9"/>
-
-        <SolidColorBrush x:Key="Blue"        Color="#040E80"/>
-        <SolidColorBrush x:Key="BlueHover"   Color="#0814C2"/>
-        <SolidColorBrush x:Key="BluePressed" Color="#0A18E0"/>
-
         <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{StaticResource Text}"/>
             <Setter Property="FontFamily" Value="JetBrains Mono"/>
-        </Style>
-
-        <Style TargetType="{x:Type DatePickerTextBox}">
-            <Setter Property="Background" Value="Black"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="10,6"/>
-        </Style>
-
-        <Style x:Key="BtnBlue" TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource Blue}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Blue}"/>
-            <Setter Property="Foreground" Value="{StaticResource Text}"/>
-            <Setter Property="FontFamily" Value="JetBrains Mono"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="52"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border x:Name="b"
-                                CornerRadius="16"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="1"
-                                Padding="14,0">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="b" Property="Background" Value="{StaticResource BlueHover}"/>
-                                <Setter TargetName="b" Property="BorderBrush" Value="{StaticResource BlueHover}"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="b" Property="Background" Value="{StaticResource BluePressed}"/>
-                                <Setter TargetName="b" Property="BorderBrush" Value="{StaticResource BluePressed}"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="b" Property="Opacity" Value="0.45"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="BtnTop" TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource InputBg}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
-            <Setter Property="Foreground" Value="{StaticResource Text}"/>
-            <Setter Property="FontFamily" Value="JetBrains Mono"/>
-            <Setter Property="Width" Value="60"/>
-            <Setter Property="Height" Value="28"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
         </Style>
 
         <Style TargetType="TextBox">
-            <Setter Property="Background" Value="{StaticResource InputBg}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
-            <Setter Property="Foreground" Value="{StaticResource Text}"/>
             <Setter Property="FontFamily" Value="JetBrains Mono"/>
-            <Setter Property="Height" Value="34"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="Background" Value="#141414"/>
+            <Setter Property="BorderBrush" Value="#6A6A6A"/>
+            <Setter Property="Height" Value="36"/>
             <Setter Property="Padding" Value="10,6"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
 
-        <Style TargetType="RadioButton">
-            <Setter Property="Foreground" Value="{StaticResource Text}"/>
+        <Style TargetType="Button">
             <Setter Property="FontFamily" Value="JetBrains Mono"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Margin" Value="0,0,18,0"/>
-        </Style>
-
-        <Style TargetType="DatePicker">
-            <Setter Property="Background" Value="Black"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontFamily" Value="JetBrains Mono"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="Background" Value="#2A2A2A"/>
+            <Setter Property="BorderBrush" Value="#3A3A3A"/>
             <Setter Property="Height" Value="34"/>
-            <Setter Property="Width" Value="220"/>
+            <Setter Property="Padding" Value="14,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style x:Key="PostaviButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="#040E80"/>
+            <Setter Property="BorderBrush" Value="#040E80"/>
+            <Setter Property="Height" Value="46"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="FontFamily" Value="JetBrains Mono"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
         </Style>
 
         <Style x:Key="DarkComboBoxItem" TargetType="ComboBoxItem">
-            <Setter Property="Background" Value="Black"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="Foreground" Value="#141414"/>
             <Setter Property="Padding" Value="10,6"/>
             <Style.Triggers>
                 <Trigger Property="IsHighlighted" Value="True">
-                    <Setter Property="Background" Value="{StaticResource BlueHover}"/>
-                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Foreground" Value="Black"/>
                 </Trigger>
                 <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="{StaticResource BlueHover}"/>
+                    <Setter Property="Background" Value="#0814C2"/>
                     <Setter Property="Foreground" Value="White"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
 
         <Style x:Key="DarkComboBox" TargetType="ComboBox">
-            <Setter Property="Background" Value="Black"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
-            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontFamily" Value="JetBrains Mono"/>
-            <Setter Property="Height" Value="34"/>
+            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="Foreground" Value="#141414"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Height" Value="36"/>
             <Setter Property="Padding" Value="8,4"/>
             <Setter Property="ItemContainerStyle" Value="{StaticResource DarkComboBoxItem}"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ComboBox">
-                        <Grid>
-                            <Border x:Name="MainBorder"
-                                    Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="6"
-                                    Padding="{TemplateBinding Padding}"
-                                    TextElement.Foreground="{TemplateBinding Foreground}">
-                                <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition/>
-                                                <ColumnDefinition Width="26"/>
-                                            </Grid.ColumnDefinitions>
-
-                                    <ContentPresenter
-                                        VerticalAlignment="Center"
-                                        Content="{TemplateBinding SelectionBoxItem}"
-                                        ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                        RecognizesAccessKey="True"/>
-
-                                    <ToggleButton Grid.Column="1"
-                                                  Focusable="False"
-                                                  IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                                  Background="Transparent"
-                                                  BorderThickness="0">
-                                                <Path Data="M 0 0 L 4 4 L 8 0 Z"
-                                                      Fill="{TemplateBinding Foreground}"
-                                                      HorizontalAlignment="Center"
-                                                      VerticalAlignment="Center"/>
-                                            </ToggleButton>
-                                </Grid>
-                            </Border>
-
-                            <Popup x:Name="PART_Popup"
-                                   IsOpen="{TemplateBinding IsDropDownOpen}"
-                                   Placement="Bottom"
-                                   PlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                   AllowsTransparency="True"
-                                   Focusable="False"
-                                   PopupAnimation="Fade">
-                                <Border Background="{TemplateBinding Background}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                        CornerRadius="6"
-                                        TextElement.Foreground="{TemplateBinding Foreground}"
-                                        MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}">
-                                    <ScrollViewer CanContentScroll="True"
-                                                  Background="{TemplateBinding Background}">
-                                        <ItemsPresenter/>
-                                    </ScrollViewer>
-                                </Border>
-                            </Popup>
-                        </Grid>
-
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="MainBorder" Property="Opacity" Value="0.45"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
         </Style>
 
+        <Style TargetType="ListBox">
+            <Setter Property="FontFamily" Value="JetBrains Mono"/>
+            <Setter Property="Background" Value="#141414"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="BorderBrush" Value="#3A3A3A"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style x:Key="KarticeSadrzaja" TargetType="Border">
+            <Setter Property="Background" Value="#202124"/>
+            <Setter Property="BorderBrush" Value="#3A3A3A"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="18"/>
+            <Setter Property="Padding" Value="14"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+        </Style>
     </Window.Resources>
 
     <Grid>
-                    <Border Background="{StaticResource BgOuter}"
-                            BorderBrush="{StaticResource Border}"
-                            BorderThickness="2"
-                            CornerRadius="25"
-                            Padding="20">
+        <Border Background="#1E1E1E"
+                BorderBrush="#3A3A3A"
+                BorderThickness="2"
+                CornerRadius="25"
+                Padding="20">
 
-            <Border Background="{StaticResource BgInner}"
+            <Border Background="#242527"
                     CornerRadius="25"
                     Padding="20">
 
@@ -230,139 +114,180 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0" Height="40">
+                    <Grid Grid.Row="0"
+                          Height="40"
+                          Background="Transparent"
+                          MouseLeftButtonDown="TopBar_OnMouseLeftButtonDown">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button x:Name="btn_Minimize"
+                        <Button x:Name="MinimizeButton"
                                 Grid.Column="1"
                                 Content="—"
+                                Width="60"
+                                Height="28"
                                 Margin="0,0,8,0"
-                                Style="{StaticResource BtnTop}"
-                                Click="btn_Minimize_Click"/>
+                                Click="MinimizeButton_Click"/>
 
-                        <Button x:Name="btn_Back"
-                                        Grid.Column="2"
-                                        Content="Back"
-                                        Style="{StaticResource BtnTop}"
-                                         Click="btn_Back_Click"/>
+                        <Button x:Name="BackButton"
+                                Grid.Column="2"
+                                Content="Back"
+                                Width="60"
+                                Height="28"
+                                Click="BackButton_Click"/>
                     </Grid>
 
-                    <StackPanel Grid.Row="1"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
-                                Margin="0,20,0,0"
-                                Width="560">
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Width="900" HorizontalAlignment="Center" Margin="0,16,0,0">
 
-                        <TextBlock Text="Automatsko arhiviranje"
-                                   HorizontalAlignment="Center"
-                                   FontSize="40"
-                                   FontWeight="Bold"
-                                   Margin="0,10,0,8"/>
+                            <TextBlock Text="AUTO ARHIVIRANJE"
+                                       HorizontalAlignment="Center"
+                                       FontSize="34"
+                                       FontWeight="Bold"
+                                       Margin="0,0,0,16"/>
 
-                        <TextBlock Text="Odaberi gdje arhivirati i koliko često."
-                                   HorizontalAlignment="Center"
-                                   FontSize="12"
-                                   Foreground="{StaticResource Muted}"
-                                   TextAlignment="Center"
-                                   TextWrapping="Wrap"
-                                   Margin="0,0,0,20"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="14"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
 
-                        <Border Background="{StaticResource CardBg}"
-                                BorderBrush="{StaticResource Border}"
-                                BorderThickness="1"
-                                  CornerRadius="18"
-                                 Padding="16"
-                                 Margin="0,0,0,12">
+                                <Border Style="{StaticResource KarticeSadrzaja}" Grid.Column="0">
+                                    <StackPanel>
+                                        <TextBlock Text="LOKALNO"
+                                                   FontWeight="Bold"
+                                                   FontSize="14"
+                                                   Margin="0,0,0,10"/>
 
-                            <StackPanel>
-                                <TextBlock Text="Tip arhiviranja"
-                                           FontWeight="Bold"
-                                           FontSize="12"
-                                           Margin="0,0,0,10"/>
+                                        <CheckBox x:Name="LocalEnabledCheckBox"
+                                                  Content="Omogućeno"
+                                                  Margin="0,0,0,10"/>
 
-                                <StackPanel Orientation="Horizontal">
-                                    <RadioButton x:Name="rbLocal"
-                                                 Content="Lokalno"
-                                                 GroupName="ArchiveTarget"
-                                                 IsChecked="True"/>
-                                    <RadioButton x:Name="rbServer"
-                                                 Content="Server / Cloud"
-                                                 GroupName="ArchiveTarget"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Svakih" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                            <TextBox x:Name="LocalIntervalValueTextBox" Width="80" Text="1"/>
+                                            <ComboBox x:Name="LocalIntervalUnitComboBox"
+                                                      Width="180"
+                                                      Margin="10,0,0,0"
+                                                      Style="{StaticResource DarkComboBox}"
+                                                      Foreground="Black">
+                                                <ComboBoxItem Content="Sati" Tag="Hours" Foreground="Black" Background="WhiteSmoke"/>
+                                                <ComboBoxItem Content="Dani" Tag="Days" Foreground="Black" Background="WhiteSmoke"/>
+                                                <ComboBoxItem Content="Tjedni" Tag="Weeks" Foreground="Black" Background="WhiteSmoke"/>
+                                                <ComboBoxItem Content="Mjeseci" Tag="Months" Foreground="Black" Background="WhiteSmoke"/>
+                                                <ComboBoxItem Content="Jednom" Tag="Once" Foreground="Black" Background="WhiteSmoke"/>
+                                                <ComboBoxItem Content="Nikad" Tag="Never" Foreground="Black" Background="WhiteSmoke"/>
+                                            </ComboBox>
+                                        </StackPanel>
 
-                        <Border Background="{StaticResource CardBg}"
-                                BorderBrush="{StaticResource Border}"
-                                BorderThickness="1"
-                                CornerRadius="18"
-                                Padding="16"
-                                Margin="0,0,0,12">
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                            <TextBlock Text="Početak (opcionalno)" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                            <DatePicker x:Name="LocalStartDatePicker" Width="200"/>
+                                        </StackPanel>
 
-                            <StackPanel>
-                                <TextBlock Text="Period"
-                                                       FontWeight="Bold"
-                                                       FontSize="12"
-                                                       Margin="0,0,0,10"/>
+                                        <TextBlock Text="Izvori" FontWeight="Bold" Margin="0,14,0,8"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                            <Button x:Name="AddLocalFolderButton" Content="Dodaj folder" Margin="0,0,8,0" Click="DodajFolderIzvorLOCAL_Click"/>
+                                            <Button x:Name="AddLocalFilesButton" Content="Dodaj file" Margin="0,0,8,0" Click="DodajFileIzvorLOCAL_Click"/>
+                                            <Button x:Name="RemoveLocalSourcesButton" Content="Ukloni" Click="UkloniLocalIzvore_Click"/>
+                                        </StackPanel>
+                                        <ListBox x:Name="LocalSourcesListBox" Height="140" SelectionMode="Extended"/>
 
-                                <ComboBox x:Name="cbPeriod"
-                                          Style="{StaticResource DarkComboBox}"
-                                          SelectedIndex="0">
-                                    <ComboBoxItem Content="Svaki tjedan"/>
-                                    <ComboBoxItem Content="Svaki mjesec"/>
-                                    <ComboBoxItem Content="Svake godine"/>
-                                </ComboBox>
-                            </StackPanel>
-                        </Border>
+                                        <TextBlock Text="Lokacija spremanja" FontWeight="Bold" Margin="0,14,0,8"/>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox x:Name="LocalDestinationTextBox"/>
+                                            <Button Grid.Column="1" Content="Browse" Margin="8,0,0,0" Click="FileExZaOdabir_Click"/>
+                                        </Grid>
 
-                        <Border Background="{StaticResource CardBg}"
-                                BorderBrush="{StaticResource Border}"
-                                BorderThickness="1"
-                                CornerRadius="18"
-                                Padding="16"
-                                Margin="0,0,0,18">
+                                        <Border Background="#141414" BorderBrush="#3A3A3A" BorderThickness="1" CornerRadius="12" Padding="10" Margin="0,14,0,0">
+                                            <StackPanel>
+                                                <TextBlock x:Name="LocalSetText" FontSize="12" Text="Postavljeno: -"/>
+                                                <TextBlock x:Name="LocalLastRunText" FontSize="12" Margin="0,6,0,0" Text="Zadnje izvršeno: -"/>
+                                                <TextBlock x:Name="LocalNextRunText" FontSize="12" Margin="0,6,0,0" Text="Sljedeće: -"/>
+                                                <TextBlock x:Name="LocalErrorText" FontSize="12" Margin="0,6,0,0" Foreground="#FFB9B9B9" TextWrapping="Wrap" Text="Greška: -"/>
+                                            </StackPanel>
+                                        </Border>
 
-                            <StackPanel>
-                                <TextBlock Text="Početak (opcionalno)"
-                                           FontWeight="Bold"
-                                           FontSize="12"
-                                           Margin="0,0,0,10"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0,14,0,0" HorizontalAlignment="Center">
+                                            <Button x:Name="SaveLocalButton" Content="Postavi lokalno" Width="190" Style="{StaticResource PostaviButton}" Click="PostaviLocalAuto_Click" Margin="0,0,10,0"/>
+                                            <Button x:Name="DisableLocalButton" Content="Ukloni lokalno" Width="190" Click="UkloniLocalAuto_Click"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
 
-                                <TextBlock Text="Odaberi datum od kojeg kreće automatsko arhiviranje."
-                                           Foreground="{StaticResource Muted}"
-                                           FontSize="10"
-                                           Margin="0,0,0,10"
-                                           TextWrapping="Wrap"/>
+                                <Border Style="{StaticResource KarticeSadrzaja}" Grid.Column="2">
+                                    <StackPanel>
+                                        <TextBlock Text="SERVER (AZURE BLOB)"
+                                                   FontWeight="Bold"
+                                                   FontSize="14"
+                                                   Margin="0,0,0,10"/>
 
-                                <DatePicker x:Name="dpStartDate"
-                                            Width="240"
-                                            Height="50"
-                                            />
-                            </StackPanel>
-                        </Border>
+                                        <CheckBox x:Name="ServerEnabledCheckBox"
+                                                  Content="Omogućeno"
+                                                  Margin="0,0,0,10"/>
 
-                        <Button x:Name="PostaviArhiviranje"
-                                Content="Postavi"
-                                Width="360"
-                                FontSize="18"
-                                Style="{StaticResource BtnBlue}"
-                                Click="btn_PostaviArhiviranje_Click"
-                                Margin="0,0,0,10"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Svakih" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                            <TextBox x:Name="ServerIntervalValueTextBox" Width="80" Text="1"/>
+                                            <ComboBox x:Name="ServerIntervalUnitComboBox"
+                                                      Width="180"
+                                                      Margin="10,0,0,0"
+                                                      Style="{StaticResource DarkComboBox}">
+                                                <ComboBoxItem Content="Sati" Tag="Hours" Foreground="Black" Background="WhiteSmoke"/>
+                                                <ComboBoxItem Content="Dani" Tag="Days" Foreground="Black" Background="WhiteSmoke"/>
+                                                <ComboBoxItem Content="Tjedni" Tag="Weeks" Foreground="Black" Background="WhiteSmoke"/>
+                                                <ComboBoxItem Content="Mjeseci" Tag="Months" Foreground="Black" Background="WhiteSmoke"/>
+                                                <ComboBoxItem Content="Jednom" Tag="Once" Foreground="Black" Background="WhiteSmoke"/>
+                                                <ComboBoxItem Content="Nikad" Tag="Never" Foreground="Black" Background="WhiteSmoke"/>
+                                            </ComboBox>
+                                        </StackPanel>
 
-                        <Button x:Name="UkloniArhiviranje"
-                                Content="Ukloni auto arhivu"
-                                Width="360"
-                                FontSize="18"
-                                Style="{StaticResource BtnBlue}"
-                                Margin="0,0,0,10"
-                                Click="btn_UkloniArhiviranje_Click"/>
-                    </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                            <TextBlock Text="Početak (opcionalno)" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                            <DatePicker x:Name="ServerStartDatePicker" Width="200"/>
+                                        </StackPanel>
+
+                                        <TextBlock Text="Izvori" FontWeight="Bold" Margin="0,14,0,8"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                            <Button x:Name="AddServerFolderButton" Content="Dodaj folder" Margin="0,0,8,0" Click="DodajFolderIzvorSERVER_Click"/>
+                                            <Button x:Name="AddServerFilesButton" Content="Dodaj file" Margin="0,0,8,0" Click="DodajFileIzvorSERVER_Click"/>
+                                            <Button x:Name="RemoveServerSourcesButton" Content="Ukloni" Click="UkloniServerIzvore_Click"/>
+                                        </StackPanel>
+                                        <ListBox x:Name="ServerSourcesListBox" Height="140" SelectionMode="Extended"/>
+
+                                        <TextBlock Text="Folder u containeru" FontWeight="Bold" Margin="0,14,0,8"/>
+                                        <TextBox x:Name="ServerFolderTextBox" Text="archives/auto/"/>
+
+                                        <TextBlock x:Name="ServerLoginText" Margin="0,10,0,0" FontSize="12" Foreground="Gray" Text="Server: -"/>
+
+                                        <Border Background="#141414" BorderBrush="#3A3A3A" BorderThickness="1" CornerRadius="12" Padding="10" Margin="0,14,0,0">
+                                            <StackPanel>
+                                                <TextBlock x:Name="ServerSetText" FontSize="12" Text="Postavljeno: -"/>
+                                                <TextBlock x:Name="ServerLastRunText" FontSize="12" Margin="0,6,0,0" Text="Zadnje izvršeno: -"/>
+                                                <TextBlock x:Name="ServerNextRunText" FontSize="12" Margin="0,6,0,0" Text="Sljedeće: -"/>
+                                                <TextBlock x:Name="ServerErrorText" FontSize="12" Margin="0,6,0,0" Foreground="#FFB9B9B9" TextWrapping="Wrap" Text="Greška: -"/>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,14,0,0" HorizontalAlignment="Center">
+                                            <Button x:Name="SaveServerButton" Content="Postavi server" Width="190" Style="{StaticResource PostaviButton}" Click="PostaviServerAuto_Click" Margin="0,0,10,0"/>
+                                            <Button x:Name="DisableServerButton" Content="Ukloni server" Width="190" Click="UkloniServerAuto_Click"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+
+                        </StackPanel>
+                    </ScrollViewer>
                 </Grid>
-
             </Border>
         </Border>
     </Grid>

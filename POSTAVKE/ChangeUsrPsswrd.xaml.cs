@@ -1,96 +1,113 @@
-﻿using Microsoft.Data.SqlClient;
-using System.Data;
+﻿using System.Data;
 using System.Windows;
+using System.Windows.Input;
+using Microsoft.Data.SqlClient;
 
 namespace KeepIT
 {
     public partial class ChangeUsrPsswrd : Window
     {
-        private const string ConnectionString =
-            "Server=tcp:keep-it.database.windows.net,1433;" +
-            "Initial Catalog=KeepIT;" +
-            "Persist Security Info=False;" +
-            "User ID=fbarisicAzure;" +
-            "Password=FBarisic123!;" +
-            "MultipleActiveResultSets=False;" +
-            "Encrypt=True;" +
-            "TrustServerCertificate=False;" +
-            "Connection Timeout=30;";
 
-        public ChangeUsrPsswrd()
+        public ChangeUsrPsswrd() { InitializeComponent(); }
+
+        private async void PromjeniLozinku_Click(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-        }
+            var app = (App)Application.Current;
 
-        private void btn_PromjeniPostavkeProfila_Click(object sender, RoutedEventArgs e)
-        {
-            string username = ((App)Application.Current).CurrentUsername!;
-            Guid userId = ((App)Application.Current).CurrentUserId;
+            var username = app.CurrentUsername;
+            var userId = app.CurrentUserId;
 
-            string oldPass = txt_OldPsswrd.Password;
-            string newPass = txt_NewPsswrd.Password;
+            var oldPassword = OldPasswordBox.Password;
+            var newPassword = NewPasswordBox.Password;
 
             if (string.IsNullOrWhiteSpace(username))
             {
-                MessageBox.Show("Nisi prijavljen.");
+                Alerts.Show(this, "Nisi prijavljen.", "POSTAVKE");
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(oldPass) || string.IsNullOrWhiteSpace(newPass))
+            if (userId == Guid.Empty)
             {
-                MessageBox.Show("Popuni staru i novu lozinku.");
+                Alerts.Show(this, "Sesija nije ispravna. Prijavi se ponovno.", "POSTAVKE");
                 return;
             }
+
+            if (string.IsNullOrWhiteSpace(oldPassword) || string.IsNullOrWhiteSpace(newPassword))
+            {
+                Alerts.Show(this, "Popuni staru i novu lozinku.", "POSTAVKE");
+                return;
+            }
+
+            var button = (sender as FrameworkElement);
+            if (button != null)
+                button.IsEnabled = false;
 
             try
             {
-                using var conn = new SqlConnection(ConnectionString);
-                conn.Open();
+                var changed = await PromjeniLozinkuAsync(userId, oldPassword, newPassword);
 
-                const string sql = @"
-                    UPDATE dbo.Korisnici
-                    SET PasswordHash = HASHBYTES('SHA2_256', @newPassword)
-                    WHERE Username COLLATE Latin1_General_100_CS_AS = @username
-                      AND PasswordHash = HASHBYTES('SHA2_256', @oldPassword);
-                    ";
-
-                using var cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.Add("@username", SqlDbType.NVarChar, 64).Value = username;
-                cmd.Parameters.Add("@oldPassword", SqlDbType.NVarChar, 200).Value = oldPass;
-                cmd.Parameters.Add("@newPassword", SqlDbType.NVarChar, 200).Value = newPass;
-
-                int rows = cmd.ExecuteNonQuery();
-
-                if (rows == 1)
+                if (changed)
                 {
-                    MessageBox.Show("Lozinka je promijenjena. Potrebno se ponovno prijaviti!");
-                    txt_OldPsswrd.Clear();
-                    txt_NewPsswrd.Clear();
+                    Alerts.Show(this, "Lozinka je promijenjena. Potrebno se ponovno prijaviti!", "USPJEH");
 
-                    var login = new Login();
-                    login.Show();
-                    this.Close();
+                    OldPasswordBox.Clear();
+                    NewPasswordBox.Clear();
+
+                    new Login().Show();
+                    Close();
                 }
                 else
                 {
-                    MessageBox.Show("Stara lozinka nije točna.");
+                    Alerts.Show(this, "Stara lozinka nije točna.", "GREŠKA");
                 }
+            }
+            catch (SqlException ex)
+            {
+                Alerts.Show(this, "Greška pri pristupu bazi: " + ex.Message, "GREŠKA");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Greška pri pristupu bazi: " + ex.Message);
+                Alerts.Show(this, "Greška: " + ex.Message, "GREŠKA");
+            }
+            finally
+            {
+                if (button != null)
+                    button.IsEnabled = true;
             }
         }
+        private static async Task<bool> PromjeniLozinkuAsync(Guid userId, string oldPassword, string newPassword)
+        {
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
 
-        private void btn_Minimize_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = WindowState.Minimized;
+            var sqlConnectionString = await KeyVaultSecrets.GetSqlConnectionStringAppAsync();
+            await using var connection = new SqlConnection(sqlConnectionString);
+            await connection.OpenAsync(cts.Token);
+
+            const string sql = @"
+                        UPDATE dbo.Korisnici
+                        SET PasswordHash = HASHBYTES('SHA2_256', @newPassword)
+                        WHERE UserId = @userId
+                        AND PasswordHash = HASHBYTES('SHA2_256', @oldPassword);";
+
+            await using var command = new SqlCommand(sql, connection);
+            command.Parameters.Add("@userId", SqlDbType.UniqueIdentifier).Value = userId;
+            command.Parameters.Add("@oldPassword", SqlDbType.NVarChar, 200).Value = oldPassword;
+            command.Parameters.Add("@newPassword", SqlDbType.NVarChar, 200).Value = newPassword;
+
+            var rows = await command.ExecuteNonQueryAsync(cts.Token);
+            return rows == 1;
         }
-        private void btn_Back_Click(object sender, RoutedEventArgs e)
+
+        private void TopBar_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            PostavkeMenu postavkeMenu = new PostavkeMenu();
-            postavkeMenu.Show();
-            this.Close();
+            if (e.ButtonState == MouseButtonState.Pressed)
+                DragMove();
+        }
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            new PostavkeMenu().Show();
+            Close();
         }
     }
 }

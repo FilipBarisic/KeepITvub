@@ -4,44 +4,46 @@ namespace KeepIT
 {
     public static class DefaultArchivePathStore
     {
-        public const string FallbackPath = @"C:\KeepIT_Archive"; // za nedaj Boze
+        public const string FallbackPath = @"C:\KeepIT_Archive";
 
-        private static string SettingsFilePath =>
+        private static readonly string SettingsDirectory =
             Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "KeepIT",
-                "default_archive_path.txt"
-            );
+                "KeepIT");
+
+        private static readonly string SettingsFilePath =
+            Path.Combine(SettingsDirectory, "default_archive_path.txt");
 
         public static string Get()
         {
             try
             {
-                if (File.Exists(SettingsFilePath))
-                {
-                    var v = File.ReadAllText(SettingsFilePath).Trim();
-                    if (!string.IsNullOrWhiteSpace(v))
-                        return v;
-                }
+                if (!File.Exists(SettingsFilePath))
+                    return FallbackPath;
+
+                var value = (File.ReadAllText(SettingsFilePath) ?? string.Empty).Trim();
+                return string.IsNullOrWhiteSpace(value) ? FallbackPath : value;
             }
             catch
             {
-            
+                return FallbackPath;
             }
-
-            return FallbackPath;
         }
 
         public static void Set(string newPath)
         {
-            if (string.IsNullOrWhiteSpace(newPath))
-            {
+            var value = (newPath ?? string.Empty).Trim();
+            if (string.IsNullOrWhiteSpace(value))
                 return;
-            }
 
-            var dir = Path.GetDirectoryName(SettingsFilePath)!;
-            Directory.CreateDirectory(dir);
-            File.WriteAllText(SettingsFilePath, newPath);
+            try
+            {
+                Directory.CreateDirectory(SettingsDirectory);
+                File.WriteAllText(SettingsFilePath, value);
+            }
+            catch
+            {
+            }
         }
     }
 }
