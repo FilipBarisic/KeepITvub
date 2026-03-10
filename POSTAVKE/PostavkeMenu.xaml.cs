@@ -30,7 +30,7 @@ namespace KeepIT
             Close();
         }
 
-        private void PromjeniLozinku_Click(object sender, RoutedEventArgs e)
+        private void PromijeniLozinku_Click(object sender, RoutedEventArgs e)
         {
             new ChangeUsrPsswrd().Show();
             Close();

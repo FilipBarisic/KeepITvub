@@ -111,7 +111,7 @@
                                 VerticalAlignment="Top"
                                 Margin="0,0,0,0">
 
-                        <TextBlock Text="Promjeni default lokaciju arhiviranja"
+                        <TextBlock Text="Promijeni default lokaciju arhiviranja"
                                    HorizontalAlignment="Center"
                                    FontSize="34"
                                    FontWeight="Bold"
@@ -154,13 +154,13 @@
                                    TextAlignment="Center"/>
 
                         <Button x:Name="ChangeLocalSavePathButton"
-                                Content="Promjeni local save"
+                                Content="Promijeni local save"
                                 Width="360"
                                 Height="55"
                                 FontSize="20"
                                 Margin="0,0,0,30"
                                 Style="{StaticResource SaveButton}"
-                                Click="PromjeniDefaultPath_Click"/>
+                                Click="PromijeniDefaultPath_Click"/>
                     </StackPanel>
                 </Grid>
             </Border>

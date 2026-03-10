@@ -5,6 +5,8 @@ VisualStudioVersion = 18.2.11408.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeepIT", "KeepIT.csproj", "{6D66A1B3-E495-4163-9112-6CE8D226BA66}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "KeepItSetup", "..\KeepItSetup\KeepItSetup.vdproj", "{96EBF7EF-BF88-1D78-1323-3DCF9F131FAD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{6D66A1B3-E495-4163-9112-6CE8D226BA66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D66A1B3-E495-4163-9112-6CE8D226BA66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D66A1B3-E495-4163-9112-6CE8D226BA66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96EBF7EF-BF88-1D78-1323-3DCF9F131FAD}.Debug|Any CPU.ActiveCfg = Debug
+		{96EBF7EF-BF88-1D78-1323-3DCF9F131FAD}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

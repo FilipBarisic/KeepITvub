@@ -10,7 +10,7 @@ namespace KeepIT
 
         public ChangeUsrPsswrd() { InitializeComponent(); }
 
-        private async void PromjeniLozinku_Click(object sender, RoutedEventArgs e)
+        private async void PromijeniLozinku_Click(object sender, RoutedEventArgs e)
         {
             var app = (App)Application.Current;
 
@@ -44,7 +44,7 @@ namespace KeepIT
 
             try
             {
-                var changed = await PromjeniLozinkuAsync(userId, oldPassword, newPassword);
+                var changed = await PromijeniLozinkuAsync(userId, oldPassword, newPassword);
 
                 if (changed)
                 {
@@ -75,7 +75,7 @@ namespace KeepIT
                     button.IsEnabled = true;
             }
         }
-        private static async Task<bool> PromjeniLozinkuAsync(Guid userId, string oldPassword, string newPassword)
+        private static async Task<bool> PromijeniLozinkuAsync(Guid userId, string oldPassword, string newPassword)
         {
             using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
 

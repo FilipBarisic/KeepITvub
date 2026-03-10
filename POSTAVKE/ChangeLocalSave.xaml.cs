@@ -12,7 +12,7 @@ namespace KeepIT
         }
 
         private void UcitajPath() { CurrentLocalSavePathText.Text = DefaultArchivePathStore.Get(); }
-        private void PromjeniDefaultPath_Click(object sender, RoutedEventArgs e)
+        private void PromijeniDefaultPath_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new Microsoft.Win32.OpenFolderDialog
             {

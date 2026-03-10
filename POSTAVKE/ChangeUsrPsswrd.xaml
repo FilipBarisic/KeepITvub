@@ -151,13 +151,13 @@
                                      Style="{StaticResource LozinkaStyle}"/>
 
                         <Button x:Name="ChangePasswordButton"
-                                Content="Promjeni lozinku profila"
+                                Content="Promijeni lozinku profila"
                                 Width="360"
                                 Height="55"
                                 FontSize="20"
                                 Margin="0,0,0,30"
                                 Style="{StaticResource SaveButton}"
-                                Click="PromjeniLozinku_Click"/>
+                                Click="PromijeniLozinku_Click"/>
                     </StackPanel>
                 </Grid>
             </Border>

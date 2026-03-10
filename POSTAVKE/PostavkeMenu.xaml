@@ -116,7 +116,7 @@
                                    FontFamily="JetBrains Mono"/>
 
                         <Button x:Name="ChangeLocalSaveButton"
-                                Content="Promjeni lokalni save"
+                                Content="Promijeni lokalni save"
                                 Width="360"
                                 Height="55"
                                 FontSize="20"
@@ -125,13 +125,13 @@
                                 Click="ChangeLocalSaveButton_Click"/>
 
                         <Button x:Name="ChangePasswordButton"
-                                Content="Promjeni lozinku"
+                                Content="Promijeni lozinku"
                                 Width="360"
                                 Height="55"
                                 FontSize="20"
                                 Margin="0,0,0,30"
                                 Style="{StaticResource PostavkeMeniButtons}"
-                                Click="PromjeniLozinku_Click"/>
+                                Click="PromijeniLozinku_Click"/>
 
                         <Button x:Name="AutoArchiveButton"
                                 Content="Automatsko arhiviranje"
